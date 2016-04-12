@@ -12,6 +12,7 @@ utils: Some utilities classes and functions to dynamically render react componen
 * Basic ActionCable integration
 * NPM support
 * Bower support
+* Code watching
 
 ## Configuration
 More documentation can be found here for brunch: https://github.com/brunch/brunch/blob/master/docs/config.md#files
