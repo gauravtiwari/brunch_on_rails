@@ -13,7 +13,7 @@ export default class IndexComponent extends React.Component {
 
 	componentDidMount() {
 		setTimeout(() => {
-			this._sengPing();
+			this._sendPing();
 		}, 5000);
 		this._setupSubscription();
 	}
@@ -31,9 +31,9 @@ export default class IndexComponent extends React.Component {
 		App.EchoChannel = EchoChannel;
 	}
 
-	_sengPing() {
+	_sendPing() {
 		$.get('/ping', function(data) {
-			console.log("Ping server");
+			console.log("Pinging server...");
 		});
 	}
 
