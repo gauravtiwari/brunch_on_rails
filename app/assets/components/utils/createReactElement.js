@@ -8,16 +8,13 @@ import reactComponent from './reactComponent';
  * @returns {Element}
  */
 
-export default function createReactElement(
-  name,
-  props,
-  domNode) {
-
+export default function createReactElement(name, props, domNode) {
   const componentObj = reactComponent.getComponent(name);
   const { component, generatorFunction } = componentObj;
 
   if (generatorFunction) {
     return component(props);
   }
+
   return React.createElement(component, props);
 }

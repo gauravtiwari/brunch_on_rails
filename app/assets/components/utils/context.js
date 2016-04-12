@@ -1,5 +1,5 @@
 /**
- * Get the context, be it window or global
+ * Get the context, { window || global }
  * @returns {boolean|Window|*|context}
  */
 export default function context() {
