@@ -29934,22 +29934,90 @@ function renderComponents() {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
-exports.default = function (props) {
-  return _react2.default.createElement(
-    'h2',
-    null,
-    props.message
-  );
-};
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EchoChannel = App.cable.subscriptions.create('EchoChannel', {});
+
+App.EchoChannel = EchoChannel;
+
+var IndexComponent = function (_React$Component) {
+	_inherits(IndexComponent, _React$Component);
+
+	function IndexComponent(props) {
+		_classCallCheck(this, IndexComponent);
+
+		var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(IndexComponent).call(this, props));
+
+		_this2._sengPing = _this2._sengPing.bind(_this2);
+		_this2._setupSubscription = _this2._setupSubscription.bind(_this2);
+		_this2.state = {
+			message: props.message
+		};
+		return _this2;
+	}
+
+	_createClass(IndexComponent, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this3 = this;
+
+			setTimeout(function () {
+				_this3._sengPing();
+			}, 5000);
+			this._setupSubscription();
+		}
+	}, {
+		key: '_setupSubscription',
+		value: function _setupSubscription() {
+			var _this = this;
+			App.cable.subscriptions.create('EchoChannel', {
+				received: function received(data) {
+					_this.setState({ message: data.message });
+					return data;
+				}
+			});
+		}
+	}, {
+		key: '_sengPing',
+		value: function _sengPing() {
+			_jquery2.default.get('/ping', function (data) {
+				console.log("Ping server");
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'h2',
+				null,
+				this.state.message
+			);
+		}
+	}]);
+
+	return IndexComponent;
+}(_react2.default.Component);
+
+exports.default = IndexComponent;
 });
 
 ;require.register("assets/components/src/pages/indexSecond.jsx", function(exports, require, module) {
