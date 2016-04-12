@@ -1,0 +1,42 @@
+{
+  "name": "brunch_on_rails",
+  "version": "1.0.0",
+  "description": "Add brunch to rails with Sprockets",
+  "main": "./app/assets/js/components.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "scripts": {
+    "start": "brunch watch --server",
+    "prod": "brunch build --production"
+  },
+  "dependencies": {
+    "react": "~0.14.7",
+    "react-dom": "~0.14.7"
+  },
+  "devDependencies": {
+    "auto-reload-brunch": "^2.0.0",
+    "babel-brunch": "~6.0.0",
+    "babel-preset-es2015": "~6.3.13",
+    "babel-preset-react": "~6.3.13",
+    "brunch": "^2.4.0",
+    "javascript-brunch": "^2.0.0",
+    "uglify-js-brunch": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gauravtiwari/brunch_on_rails.git"
+  },
+  "keywords": [
+    "brunch",
+    "rails",
+    "npm",
+    "react"
+  ],
+  "author": "Gaurav Tiwari <gaurav@gauravtiwari.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gauravtiwari/brunch_on_rails/issues"
+  },
+  "homepage": "https://github.com/gauravtiwari/brunch_on_rails#readme"
+}
