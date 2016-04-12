@@ -29701,101 +29701,7 @@ window["$"] = require("jquery");
 
 
 
-'use strict';
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-/* jshint ignore:start */
-(function () {
-  var WebSocket = window.WebSocket || window.MozWebSocket;
-  var br = window.brunch = window.brunch || {};
-  var ar = br['auto-reload'] = br['auto-reload'] || {};
-  if (!WebSocket || ar.disabled) return;
-
-  var cacheBuster = function cacheBuster(url) {
-    var date = Math.round(Date.now() / 1000).toString();
-    url = url.replace(/(\&|\\?)cacheBuster=\d*/, '');
-    return url + (url.indexOf('?') >= 0 ? '&' : '?') + 'cacheBuster=' + date;
-  };
-
-  var browser = navigator.userAgent.toLowerCase();
-  var forceRepaint = ar.forceRepaint || browser.indexOf('chrome') > -1;
-
-  var reloaders = {
-    page: function page() {
-      window.location.reload(true);
-    },
-
-    stylesheet: function stylesheet() {
-      [].slice.call(document.querySelectorAll('link[rel=stylesheet]')).filter(function (link) {
-        var val = link.getAttribute('data-autoreload');
-        return link.href && val != 'false';
-      }).forEach(function (link) {
-        link.href = cacheBuster(link.href);
-      });
-
-      // Hack to force page repaint after 25ms.
-      if (forceRepaint) setTimeout(function () {
-        document.body.offsetHeight;
-      }, 25);
-    },
-
-    javascript: function javascript() {
-      var scripts = [].slice.call(document.querySelectorAll('script'));
-      var textScripts = scripts.map(function (script) {
-        return script.text;
-      }).filter(function (text) {
-        return text.length > 0;
-      });
-      var srcScripts = scripts.filter(function (script) {
-        return script.src;
-      });
-
-      var loaded = 0;
-      var all = srcScripts.length;
-      var onLoad = function onLoad() {
-        loaded = loaded + 1;
-        if (loaded === all) {
-          if ((typeof require === 'undefined' ? 'undefined' : _typeof(require)) === 'object' && require.reset) require.reset();
-          textScripts.forEach(function (script) {
-            eval(script);
-          });
-        }
-      };
-
-      srcScripts.forEach(function (script) {
-        var src = script.src;
-        script.remove();
-        var newScript = document.createElement('script');
-        newScript.src = cacheBuster(src);
-        newScript.async = true;
-        newScript.onload = onLoad;
-        document.head.appendChild(newScript);
-      });
-    }
-  };
-  var port = ar.port || 9485;
-  var host = br.server || window.location.hostname || 'localhost';
-
-  var connect = function connect() {
-    var connection = new WebSocket('ws://' + host + ':' + port);
-    connection.onmessage = function (event) {
-      if (ar.disabled) return;
-      var message = event.data;
-      var reloader = reloaders[message] || reloaders.page;
-      reloader();
-    };
-    connection.onerror = function () {
-      if (connection.readyState) connection.close();
-    };
-    connection.onclose = function () {
-      window.setTimeout(connect, 1000);
-    };
-  };
-  connect();
-})();
-/* jshint ignore:end */
-;require.register("assets/components/bootstrapper.jsx", function(exports, require, module) {
+require.register("assets/components/bootstrapper.jsx", function(exports, require, module) {
 'use strict';
 
 var _register = require('./register');
@@ -29816,6 +29722,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _register2.default)();
 (0, _renderer2.default)();
+
 });
 
 require.register("assets/components/register.jsx", function(exports, require, module) {
@@ -29859,6 +29766,7 @@ function registerComponent() {
 }
 
 // Components/Views : Setup in order as Rails views
+
 });
 
 ;require.register("assets/components/renderer.jsx", function(exports, require, module) {
@@ -29928,6 +29836,7 @@ function renderComponents() {
 		}
 	});
 }
+
 });
 
 ;require.register("assets/components/src/pages/index.jsx", function(exports, require, module) {
@@ -29955,46 +29864,46 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var EchoChannel = App.cable.subscriptions.create('EchoChannel', {});
-
-App.EchoChannel = EchoChannel;
-
 var IndexComponent = function (_React$Component) {
 	_inherits(IndexComponent, _React$Component);
 
 	function IndexComponent(props) {
 		_classCallCheck(this, IndexComponent);
 
-		var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(IndexComponent).call(this, props));
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IndexComponent).call(this, props));
 
-		_this2._sengPing = _this2._sengPing.bind(_this2);
-		_this2._setupSubscription = _this2._setupSubscription.bind(_this2);
-		_this2.state = {
+		_this._sengPing = _this._sengPing.bind(_this);
+		_this._setupSubscription = _this._setupSubscription.bind(_this);
+		_this.state = {
 			message: props.message
 		};
-		return _this2;
+		return _this;
 	}
 
 	_createClass(IndexComponent, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			var _this3 = this;
+			var _this2 = this;
 
 			setTimeout(function () {
-				_this3._sengPing();
+				_this2._sengPing();
 			}, 5000);
 			this._setupSubscription();
 		}
 	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			App.EchoChannel.unsubscribe();
+		}
+	}, {
 		key: '_setupSubscription',
 		value: function _setupSubscription() {
-			var _this = this;
-			App.cable.subscriptions.create('EchoChannel', {
-				received: function received(data) {
-					_this.setState({ message: data.message });
-					return data;
-				}
+			var EchoChannel = App.cable.subscriptions.create('EchoChannel', {
+				received: function (data) {
+					this.setState({ message: data.message });
+				}.bind(this)
 			});
+			App.EchoChannel = EchoChannel;
 		}
 	}, {
 		key: '_sengPing',
@@ -30009,6 +29918,7 @@ var IndexComponent = function (_React$Component) {
 			return _react2.default.createElement(
 				'h2',
 				null,
+				'Echo: ',
 				this.state.message
 			);
 		}
@@ -30018,9 +29928,10 @@ var IndexComponent = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = IndexComponent;
+
 });
 
-;require.register("assets/components/src/pages/indexSecond.jsx", function(exports, require, module) {
+require.register("assets/components/src/pages/indexSecond.jsx", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30031,6 +29942,7 @@ exports.default = function (props) {
   return _react2.default.createElement(
     'h2',
     null,
+    'Echo: ',
     props.message
   );
 };
@@ -30040,6 +29952,7 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 });
 
 ;require.register("assets/components/src/pages/show.jsx", function(exports, require, module) {
@@ -30053,7 +29966,7 @@ exports.default = function () {
   return _react2.default.createElement(
     'h2',
     null,
-    'Ohay show page'
+    'Echo: Ohay show page'
   );
 };
 
@@ -30062,6 +29975,7 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 });
 
 ;require.register("assets/components/utils/componentRegistry.js", function(exports, require, module) {
@@ -30119,6 +30033,7 @@ exports.default = {
     }
   }
 };
+
 });
 
 require.register("assets/components/utils/context.js", function(exports, require, module) {
@@ -30135,6 +30050,7 @@ exports.default = context;
 function context() {
   return typeof window !== 'undefined' && window || typeof global !== 'undefined' && global || this;
 }
+
 });
 
 ;require.register("assets/components/utils/createReactElement.js", function(exports, require, module) {
@@ -30175,6 +30091,7 @@ function createReactElement(name, props, domNode) {
 
   return _react2.default.createElement(component, props);
 }
+
 });
 
 ;require.register("assets/components/utils/generatorFunction.js", function(exports, require, module) {
@@ -30196,6 +30113,7 @@ function generatorFunction(component) {
   var es5OrEs6ReactComponent = component.prototype.isReactComponent;
   return !es5OrEs6ReactComponent;
 }
+
 });
 
 ;require.register("assets/components/utils/reactComponent.js", function(exports, require, module) {
@@ -30231,7 +30149,7 @@ ctx.reactComponent = {
 };
 
 exports.default = ctx.reactComponent;
+
 });
 
 require('assets/components/bootstrapper');
-//# sourceMappingURL=components-bundle.js.map

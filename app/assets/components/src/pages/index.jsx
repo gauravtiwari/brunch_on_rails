@@ -1,11 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 
-const EchoChannel = App.cable.subscriptions.create('EchoChannel', {
-});
-
-App.EchoChannel = EchoChannel;
-
 export default class IndexComponent extends React.Component {
 	constructor(props) {
 		super(props);
@@ -23,14 +18,17 @@ export default class IndexComponent extends React.Component {
 		this._setupSubscription();
 	}
 
+	componentWillUnmount() {
+		App.EchoChannel.unsubscribe();
+	}
+
 	_setupSubscription() {
-		const _this = this;
-		App.cable.subscriptions.create('EchoChannel', {
+		const EchoChannel = App.cable.subscriptions.create('EchoChannel', {
 			received: function(data) {
-				_this.setState({ message: data.message });
-				return data;
-			}
+				this.setState({ message: data.message });
+			}.bind(this)
 		});
+		App.EchoChannel = EchoChannel;
 	}
 
 	_sengPing() {
@@ -40,6 +38,8 @@ export default class IndexComponent extends React.Component {
 	}
 
 	render() {
-		return <h2>{this.state.message}</h2>;
+		return(
+			<h2>Echo: {this.state.message}</h2>
+		);
 	}
 }

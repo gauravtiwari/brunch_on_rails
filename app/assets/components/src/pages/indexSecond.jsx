@@ -1,4 +1,4 @@
 import React from 'react';
 export default function (props) {
-  return <h2>{props.message}</h2>;
+  return <h2>Echo: {props.message}</h2>;
 }

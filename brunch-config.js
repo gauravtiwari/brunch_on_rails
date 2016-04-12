@@ -13,7 +13,7 @@ exports.config = {
     assets: /^(app\/assets\/images)/
   },
 
-  // Phoenix paths configuration
+  // Rails paths configuration
   paths: {
     // Dependencies and current project directories to watch
     watched: [
@@ -32,9 +32,10 @@ exports.config = {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/],
       pattern: /\.(es6|jsx|js)$/
-    }
+    },
+    autoReload: {enabled: false},
   },
-
+  sourceMaps: false,
   modules: {
     autoRequire: {
       "components-bundle.js": [

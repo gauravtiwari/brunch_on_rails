@@ -6,3 +6,9 @@ Check out the `app/assets/components` folder
 src: Contains all react components splitted in directories (same namespace as rails views)
 utils: Some utilities classes and functions to dynamically render react component
 ```
+## Features
+* React with ES6 syntax
+* Babel transpiler
+* Browser auto-reloading for react components
+* Basic ActionCable integration
+* SourceMaps
