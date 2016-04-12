@@ -1,4 +1,4 @@
 import React from 'react';
 export default function () {
-  return <div>Ohay show page</div>;
+  return <h2>Ohay show page</h2>;
 }

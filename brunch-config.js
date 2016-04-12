@@ -1,5 +1,5 @@
 exports.config = {
-  // See http://brunch.io/#documentation for docs.
+  // We only need javascripts so just join and compile javascript bundle
   files: {
     javascripts: {
       joinTo: "javascripts/components-bundle.js"
