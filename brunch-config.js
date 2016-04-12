@@ -2,7 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "javascripts/app.js"
+      joinTo: "javascripts/components-bundle.js"
     },
   },
 
@@ -17,7 +17,7 @@ exports.config = {
   paths: {
     // Dependencies and current project directories to watch
     watched: [
-      "app/assets/javascripts/react",
+      "app/assets/components",
     ],
 
     // Where to compile files to
@@ -35,7 +35,7 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "js/app.js": ["app/assets/javascripts/components"]
+      "javascripts/components-bundle.js": ["assets/components/bootstrapper"]
     }
   },
 
