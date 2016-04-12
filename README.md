@@ -1,4 +1,4 @@
-# Brunch on Rails example application
+# Brunch on Rails example application (no server rendering)
 Minimal and Simple setup to use Brunch (http://brunch.io/) with Rails asset pipeline to compile and render react on ES6 dynamically on runtime without any gems.
 
 Check out the `app/assets/components` folder
