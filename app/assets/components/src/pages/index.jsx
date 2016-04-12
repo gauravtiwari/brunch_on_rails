@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default class IndexComponent extends React.Component {
 	constructor(props) {
 		super(props);
-		this._sengPing = this._sengPing.bind(this);
+		this._sendPing = this._sendPing.bind(this);
 		this._setupSubscription = this._setupSubscription.bind(this);
 		this.state = {
 			message: props.message,

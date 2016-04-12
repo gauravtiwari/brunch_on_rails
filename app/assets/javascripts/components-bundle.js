@@ -29872,7 +29872,7 @@ var IndexComponent = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IndexComponent).call(this, props));
 
-		_this._sengPing = _this._sengPing.bind(_this);
+		_this._sendPing = _this._sendPing.bind(_this);
 		_this._setupSubscription = _this._setupSubscription.bind(_this);
 		_this.state = {
 			message: props.message
@@ -29886,7 +29886,7 @@ var IndexComponent = function (_React$Component) {
 			var _this2 = this;
 
 			setTimeout(function () {
-				_this2._sengPing();
+				_this2._sendPing();
 			}, 5000);
 			this._setupSubscription();
 		}
@@ -29906,10 +29906,10 @@ var IndexComponent = function (_React$Component) {
 			App.EchoChannel = EchoChannel;
 		}
 	}, {
-		key: '_sengPing',
-		value: function _sengPing() {
+		key: '_sendPing',
+		value: function _sendPing() {
 			_jquery2.default.get('/ping', function (data) {
-				console.log("Ping server");
+				console.log("Pinging server...");
 			});
 		}
 	}, {
