@@ -9,6 +9,6 @@ utils: Some utilities classes and functions to dynamically render react componen
 ## Features
 * React with ES6 syntax
 * Babel transpiler
-* Browser auto-reloading for react components
 * Basic ActionCable integration
-* SourceMaps
+* NPM support
+* Bower support
