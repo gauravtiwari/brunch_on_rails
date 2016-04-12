@@ -29912,8 +29912,8 @@ function mountComponents() {
 	});
 }
 
+// Listen DOM events and { Mount, Unmount } react components
 function renderComponents() {
-	// Listen DOM events and { Mount, Unmount } react components
 	document.addEventListener('DOMContentLoaded', function () {
 		if (!(typeof Turbolinks !== 'undefined')) {
 			mountComponents();

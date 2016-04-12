@@ -2,7 +2,7 @@ exports.config = {
   // We only need javascripts so just join and compile javascript bundle
   files: {
     javascripts: {
-      joinTo: "javascripts/components-bundle.js"
+      joinTo: "components-bundle.js"
     },
   },
 
@@ -17,11 +17,13 @@ exports.config = {
   paths: {
     // Dependencies and current project directories to watch
     watched: [
+      "app/assets/components/src",
+      "app/assets/components/utils",
       "app/assets/components",
     ],
 
     // Where to compile files to
-    public: "app/assets"
+    public: "app/assets/javascripts"
   },
 
   // Configure your plugins
@@ -35,7 +37,9 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "javascripts/components-bundle.js": ["assets/components/bootstrapper"]
+      "components-bundle.js": [
+        "assets/components/bootstrapper"
+      ]
     }
   },
 

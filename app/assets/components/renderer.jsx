@@ -32,8 +32,8 @@ function mountComponents() {
 	});
 }
 
+// Listen DOM events and { Mount, Unmount } react components
 export default function renderComponents() {
-	// Listen DOM events and { Mount, Unmount } react components
 	document.addEventListener('DOMContentLoaded', () => {
 	  if (!(typeof Turbolinks !== 'undefined')) {
 	    mountComponents();
