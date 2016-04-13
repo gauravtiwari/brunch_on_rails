@@ -16,3 +16,14 @@ utils: Some utilities classes and functions to dynamically render react componen
 
 ## Configuration
 More documentation can be found here for brunch: https://github.com/brunch/brunch/blob/master/docs/config.md#files
+
+## Running
+```bash
+git clone git@github.com:gauravtiwari/brunch_on_rails.git
+cd brunch_on_rails
+bundle install
+chmod 777 start
+./start
+# Or Alternatively
+bundle exec foreman start
+```
